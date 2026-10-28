@@ -5,4 +5,4 @@ __pycache__/
 .DS_Store
 .vscode/
 # Keep the workbook out of Git by default; remove this rule only if redistribution is permitted.
-data/*.xlsx
+
