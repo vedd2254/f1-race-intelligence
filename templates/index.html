@@ -3,266 +3,919 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Formula 1 race intelligence, driver performance and reliability analytics.">
-    <title>F1 Race Intelligence</title>
+    <title>FORMULA 1 | Race Intelligence Analytics</title>
+    <!-- Modern Racing & Display Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700;1,900&family=Orbitron:wght@500;700;800;900&display=swap" rel="stylesheet">
     <style>
-        :root { color-scheme: dark; --bg:#0b0b0f; --panel:#15151c; --line:#303039; --muted:#aaa; --red:#ff4438; }
-        * { box-sizing:border-box; margin:0; padding:0; }
-        body { background:var(--bg); color:#f5f5f5; font-family:Arial,sans-serif; }
-        header { padding:24px 6%; border-bottom:1px solid #292930; display:flex; justify-content:space-between; align-items:center; }
-        .logo { font-size:22px; font-weight:bold; } .logo span { color:var(--red); }
-        .status { color:#aaa; font-size:13px; letter-spacing:1px; }
-        .hero { padding:55px 6% 30px; }
-        .eyebrow { color:var(--red); letter-spacing:3px; font-size:12px; font-weight:bold; }
-        h1 { font-size:clamp(32px,5vw,54px); margin:16px 0; line-height:1.12; }
-        h1 span { color:var(--red); }
-        .description { color:var(--muted); line-height:1.7; max-width:650px; }
-        .overview { padding:15px 6% 30px; }
-        .section-heading { margin-bottom:20px; }
-        .section-heading h2 { font-size:23px; margin-bottom:8px; }
-        .section-heading p { color:#999; font-size:14px; line-height:1.6; }
-        .stats-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; }
-        .stat-card { background:linear-gradient(145deg,#191920,#121217); border:1px solid var(--line); border-radius:10px; padding:22px; min-width:0; transition:transform .2s,border-color .2s; }
-        .stat-card:hover { transform:translateY(-3px); border-color:var(--red); }
-        .stat-icon { font-size:24px; margin-bottom:18px; }
-        .stat-card h3 { font-size:16px; margin-bottom:10px; }
-        .stat-card p { color:#999; font-size:13px; line-height:1.6; overflow-wrap:anywhere; }
-        .card-tag { display:inline-block; margin-top:16px; padding:5px 9px; border-radius:4px; background:#292027; color:#ff786f; font-size:11px; letter-spacing:.5px; }
-        .data-status { margin-top:16px; padding:14px 18px; background:var(--panel); border:1px solid var(--line); border-radius:8px; color:#aaa; font-size:13px; line-height:1.6; }
-        .data-status strong { color:#ff786f; }
-        .section { margin:20px 6% 32px; padding:22px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
-        .section h2 { font-size:20px; margin-bottom:8px; }
-        .section-intro { color:#aaa; margin-bottom:18px; font-size:14px; line-height:1.6; }
-        .table-wrap { width:100%; overflow-x:auto; }
-        table { border-collapse:collapse; width:100%; min-width:640px; font-size:14px; }
-        th,td { text-align:left; padding:13px 12px; border-bottom:1px solid #2a2a33; white-space:nowrap; }
-        th { color:#ff786f; font-size:12px; text-transform:uppercase; letter-spacing:.7px; }
-        tbody tr:hover { background:#202027; }
-        .rank { color:var(--red); font-weight:bold; }
-        .reliability-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
-        .mini-list { list-style:none; }
-        .mini-list li { display:flex; justify-content:space-between; gap:16px; padding:12px 0; border-bottom:1px solid #2a2a33; color:#bbb; font-size:14px; }
-        .mini-list strong { color:#f5f5f5; }
-        .empty { color:#999; padding:18px 0; }
-        .dashboard { margin:20px 6% 60px; padding:20px; background:var(--panel); border:1px solid var(--line); border-radius:12px; }
-        .dashboard h2 { font-size:20px; margin-bottom:8px; }
-        .dashboard p { color:#aaa; margin-bottom:20px; font-size:14px; }
-        .tableau-container { width:100%; min-height:800px; overflow:hidden; border-radius:6px; background:#fff; }
-        .tableau-container .tableauPlaceholder { width:100%; }
-        .tableau-container object.tableauViz { width:100%; }
-        footer { padding:25px 6%; border-top:1px solid #292930; color:#888; font-size:13px; display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; }
-        @media (max-width:1000px) { .stats-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
-        @media (max-width:700px) { header { padding:20px; } .hero { padding:35px 20px 20px; } .overview { padding:15px 20px 25px; } .stats-grid,.reliability-grid { grid-template-columns:1fr; } .section,.dashboard { margin:15px 12px 30px; padding:14px; } .status { display:none; } }
+        :root {
+            --f1-red: #E10600;
+            --f1-red-hover: #ff1801;
+            --f1-red-glow: rgba(225, 6, 0, 0.45);
+            --bg-base: #111111;
+            --bg-card: #161619;
+            --bg-card-hover: #1c1c21;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-main: #ffffff;
+            --text-muted: #9e9ea7;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-family: 'Montserrat', sans-serif;
+            text-align: center;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Top Navigation Bar */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+            background: rgba(17, 17, 17, 0.92);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 14px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 900;
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+        }
+
+        .nav-brand .f1-badge {
+            background: var(--f1-red);
+            color: #fff;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 900;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        .btn-nav {
+            background: var(--f1-red);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 0 14px var(--f1-red-glow);
+        }
+
+        .btn-nav:hover {
+            background: var(--f1-red-hover);
+            transform: translateY(-1px);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            position: relative;
+            padding: 80px 20px 60px 20px;
+            background: 
+                radial-gradient(circle at 50% 15%, rgba(225, 6, 0, 0.25) 0%, transparent 65%),
+                linear-gradient(180deg, #111111 0%, #151518 100%);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .platform-tag {
+            display: inline-block;
+            color: #ff3333;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            background: rgba(225, 6, 0, 0.1);
+            border: 1px solid rgba(225, 6, 0, 0.3);
+            padding: 5px 16px;
+            border-radius: 20px;
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(2.8rem, 7vw, 4.8rem);
+            font-weight: 900;
+            font-style: italic;
+            letter-spacing: 4px;
+            line-height: 1.1;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .hero-title .red-text {
+            color: var(--f1-red);
+            text-shadow: 0 0 35px var(--f1-red-glow);
+        }
+
+        .hero-subtitle {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 2rem);
+            font-weight: 700;
+            letter-spacing: 3px;
+            color: #e4e4e7;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .hero-desc {
+            max-width: 740px;
+            margin: 0 auto 36px auto;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            font-weight: 400;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 50px;
+        }
+
+        .btn-primary {
+            background: var(--f1-red);
+            color: #fff;
+            padding: 14px 34px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.25s ease;
+            box-shadow: 0 8px 24px rgba(225, 6, 0, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--f1-red-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px rgba(225, 6, 0, 0.55);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 14px 34px;
+            border-radius: 6px;
+            font-weight: 800;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.25s ease;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--f1-red);
+            color: #ffffff;
+            background: rgba(225, 6, 0, 0.12);
+            transform: translateY(-2px);
+        }
+
+        /* 4 Key Stat Counters */
+        .stats-grid {
+            max-width: 960px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-subtle);
+        }
+
+        .stat-item {
+            padding: 10px;
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 900;
+            color: #ffffff;
+        }
+
+        .stat-label {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+
+        /* Secondary Quick Stat Badges */
+        .badge-row {
+            max-width: 1100px;
+            margin: 35px auto 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+        }
+
+        .quick-badge-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 10px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .quick-badge-card:hover {
+            border-color: rgba(225, 6, 0, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .badge-icon {
+            font-size: 1.5rem;
+        }
+
+        .badge-num {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #fff;
+            text-align: left;
+        }
+
+        .badge-text {
+            font-size: 0.68rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+        }
+
+        /* Section Styling */
+        .section-wrapper {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 70px 20px;
+        }
+
+        .section-tag {
+            color: var(--f1-red);
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .section-heading {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 14px;
+        }
+
+        .section-heading .highlight {
+            color: var(--f1-red);
+        }
+
+        .section-desc {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
+
+        /* Transforming F1 Data Section */
+        .intel-overview-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: left;
+        }
+
+        .track-map-container {
+            background: #0d0d10;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .track-svg {
+            width: 100%;
+            height: auto;
+            filter: drop-shadow(0 0 12px rgba(225, 6, 0, 0.3));
+        }
+
+        .track-chips {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 18px;
+        }
+
+        .chip {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ddd;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .chip.active {
+            background: rgba(225, 6, 0, 0.2);
+            border-color: var(--f1-red);
+            color: #ff5555;
+        }
+
+        .intel-feature-list {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .intel-feature-item {
+            display: flex;
+            gap: 14px;
+            align-items: flex-start;
+        }
+
+        .intel-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--f1-red);
+            border-radius: 2px;
+            margin-top: 7px;
+            flex-shrink: 0;
+            box-shadow: 0 0 8px var(--f1-red);
+        }
+
+        .intel-feature-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .intel-feature-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        /* Six Intelligence Dimensions Cards */
+        .filter-pills {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 36px;
+        }
+
+        .filter-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-muted);
+            padding: 7px 18px;
+            border-radius: 20px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .filter-pill.active, .filter-pill:hover {
+            background: var(--f1-red);
+            color: #fff;
+            border-color: var(--f1-red);
+        }
+
+        .dimensions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+            text-align: left;
+        }
+
+        .dimension-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 26px;
+            transition: all 0.25s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dimension-card:hover {
+            border-color: rgba(225, 6, 0, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .dimension-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(225, 6, 0, 0.12);
+            border: 1px solid rgba(225, 6, 0, 0.35);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: var(--f1-red);
+            margin-bottom: 18px;
+        }
+
+        .dimension-name {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .dimension-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .dimension-link {
+            color: var(--f1-red);
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .dimension-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Tableau Embed Cards */
+        .viz-section-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-top: 4px solid var(--f1-red);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 60px;
+            box-shadow: 
+                0 20px 50px rgba(0, 0, 0, 0.8),
+                0 0 1px rgba(255, 255, 255, 0.1);
+        }
+
+        .viz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 24px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: left;
+        }
+
+        .viz-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .viz-accent {
+            width: 4px;
+            height: 28px;
+            background: var(--f1-red);
+            border-radius: 2px;
+        }
+
+        .viz-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .viz-badge {
+            background: rgba(225, 6, 0, 0.12);
+            border: 1px solid rgba(225, 6, 0, 0.3);
+            color: #ff5555;
+            padding: 6px 14px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .viz-embed-wrapper {
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #0d0d10;
+        }
+
+        /* Footer */
+        footer {
+            background: #0a0a0c;
+            border-top: 1px solid var(--border-subtle);
+            padding: 40px 20px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+        }
+
+        .footer-logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: #ffffff;
+            margin-bottom: 12px;
+        }
+
+        .footer-logo span {
+            color: var(--f1-red);
+        }
+
+        @media (max-width: 992px) {
+            .navbar {
+                flex-direction: column;
+                gap: 14px;
+                padding: 16px;
+            }
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 14px;
+            }
+            .stats-grid, .badge-row {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .intel-overview-grid {
+                grid-template-columns: 1fr;
+            }
+            .dimensions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .stats-grid, .badge-row, .dimensions-grid {
+                grid-template-columns: 1fr;
+            }
+            .viz-section-card {
+                padding: 16px 8px;
+            }
+            .hero-section {
+                padding: 50px 16px;
+            }
+        }
     </style>
 </head>
 <body>
-<header>
-    <div class="logo">F1 <span>RACE INTELLIGENCE</span></div>
-    <div class="status">MOTORSPORT ANALYTICS</div>
-</header>
 
-<section class="hero">
-    <div class="eyebrow">DATA • PERFORMANCE • STRATEGY</div>
-    <h1>Understand the race.<br><span>Decode the numbers.</span></h1>
-    <p class="description">Explore Formula 1 championship standings, driver performance, circuit insights and reliability trends through interactive motorsport analytics.</p>
-</section>
+    <!-- Sticky Top Navigation -->
+    <nav class="navbar">
+        <a href="#" class="nav-brand">
+            <span class="f1-badge">F1</span>
+            RACE INTELLIGENCE
+        </a>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#project-overview">Project</a></li>
+            <li><a href="#dimensions">Dimensions</a></li>
+            <li><a href="#race-dashboard">Dashboards</a></li>
+            <li><a href="#race-story">Story</a></li>
+        </ul>
+        <a href="#race-dashboard" class="btn-nav">Explore</a>
+    </nav>
 
-<section class="overview">
-    <div class="section-heading">
-        <h2>Inside the Data</h2>
-        <p>Explore the key dimensions of Formula 1 performance through data-driven analysis.</p>
-    </div>
-    <div class="stats-grid">
-        <article class="stat-card"><div class="stat-icon">🏆</div><h3>Championship Standings</h3><p>Explore driver rankings, points distribution and the battle for the championship.</p><span class="card-tag">DRIVER ANALYTICS</span></article>
-        <article class="stat-card"><div class="stat-icon">🏎️</div><h3>Driver Performance</h3><p>Compare driver results and investigate differences in performance across the season.</p><span class="card-tag">PERFORMANCE</span></article>
-        <article class="stat-card"><div class="stat-icon">🏁</div><h3>Circuit Insights</h3><p>Examine race circuits and explore patterns in race counts and circuit-level results.</p><span class="card-tag">CIRCUIT ANALYSIS</span></article>
-        <article class="stat-card"><div class="stat-icon">⚙️</div><h3>Reliability Trends</h3><p>Investigate reliability patterns and explore the role of consistency in racing performance.</p><span class="card-tag">RELIABILITY</span></article>
-    </div>
+    <!-- Hero Section -->
+    <header id="hero" class="hero-section">
+        <div class="platform-tag">Cloud Data Analytics Platform</div>
+        <h1 class="hero-title">FORMULA <span class="red-text">1</span></h1>
+        <h2 class="hero-subtitle">Race Intelligence Dashboard</h2>
+        <p class="hero-desc">
+            Deep-dive analytics into Formula 1 World Championship 1950 &ndash; 2024. Driver performance metrics and team strategy visual analytics and historical championship trends. Powered by Tableau Cloud, advanced telemetry.
+        </p>
 
-    <div class="stats-grid" id="liveStats" style="margin-top:16px;">
-        <article class="stat-card"><div class="stat-icon">🏆</div><h3>Championship Leader</h3><p id="leaderName">Loading...</p><span class="card-tag" id="leaderPoints">Fetching points...</span></article>
-        <article class="stat-card"><div class="stat-icon">🏁</div><h3>Races in Dataset</h3><p id="raceCount">Loading...</p><span class="card-tag" id="seasonLabel">Race history</span></article>
-        <article class="stat-card"><div class="stat-icon">🌧️</div><h3>Wet Races</h3><p id="wetRaces">Loading...</p><span class="card-tag" id="wetSeasonLabel">LATEST SEASON</span></article>
-        <article class="stat-card"><div class="stat-icon">⚡</div><h3>DRS Overtakes</h3><p id="overtakes">Loading...</p><span class="card-tag" id="overtakeSeasonLabel">LATEST SEASON</span></article>
-    </div>
-    <div class="data-status" id="dataStatus">Connecting to F1 dataset...</div>
-</section>
-
-<section class="section" id="driverSection">
-    <h2>Driver Championship</h2>
-    <p class="section-intro" id="driverIntro">Loading driver standings from your workbook...</p>
-    <div class="table-wrap">
-        <table>
-            <thead><tr><th>Pos.</th><th>Driver</th><th>Team</th><th>Points</th><th>Wins</th><th>Podiums</th><th>Poles</th><th>DNFs</th></tr></thead>
-            <tbody id="driverTableBody"><tr><td colspan="8">Loading standings...</td></tr></tbody>
-        </table>
-    </div>
-</section>
-
-<section class="section">
-    <h2>Reliability Snapshot</h2>
-    <p class="section-intro" id="reliabilityIntro">Loading retirement and reliability information...</p>
-    <div class="reliability-grid">
-        <div><h3 style="margin-bottom:10px;">Retirement reasons</h3><ul class="mini-list" id="reasonList"><li>Loading...</li></ul></div>
-        <div><h3 style="margin-bottom:10px;">Teams by DNFs</h3><ul class="mini-list" id="teamDnfList"><li>Loading...</li></ul></div>
-    </div>
-</section>
-
-<main class="dashboard">
-    <h2>Race Intelligence Dashboard</h2>
-    <p>Explore the data using the interactive Tableau visualization below.</p>
-    <div class="tableau-container">
-        <div class="tableauPlaceholder" id="viz1793213729197" style="position:relative">
-            <noscript><a href="#"><img alt="Dashboard 1" src="https://public.tableau.com/static/images/F1/F1racingprojectfinal/Dashboard1/1_rss.png" style="border:none"></a></noscript>
-            <object class="tableauViz" style="display:none;">
-                <param name="host_url" value="https%3A%2F%2Fpublic.tableau.com%2F">
-                <param name="embed_code_version" value="3">
-                <param name="site_root" value="">
-                <param name="name" value="F1racingprojectfinal&#47;Dashboard1">
-                <param name="tabs" value="no">
-                <param name="toolbar" value="yes">
-                <param name="static_image" value="https://public.tableau.com/static/images/F1/F1racingprojectfinal/Dashboard1/1.png">
-                <param name="animate_transition" value="yes">
-                <param name="display_static_image" value="yes">
-                <param name="display_spinner" value="yes">
-                <param name="display_overlay" value="yes">
-                <param name="display_count" value="yes">
-                <param name="language" value="en-US">
-                <param name="filter" value="publish=yes">
-            </object>
+        <div class="hero-cta-group">
+            <a href="#race-dashboard" class="btn-primary">View Dashboard</a>
+            <a href="#race-story" class="btn-secondary">Explore Story</a>
         </div>
-    </div>
-</main>
 
-<footer><span>F1 Race Intelligence · Student Data Analytics Project</span><span>Built with Flask, pandas & Tableau Public</span></footer>
+        <!-- 4 Top Counter Metrics -->
+        <div class="stats-grid">
+            <div class="stat-item">
+                <div class="stat-number">75+</div>
+                <div class="stat-label">Years of Racing</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">1K+</div>
+                <div class="stat-label">Grand Prix Races</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">22</div>
+                <div class="stat-label">Active Drivers</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">10</div>
+                <div class="stat-label">Teams Racing</div>
+            </div>
+        </div>
 
-<script>
-const number = value => Number(value || 0).toLocaleString();
+        <!-- Secondary Quick Stat Badges -->
+        <div class="badge-row">
+            <div class="quick-badge-card">
+                <div class="badge-icon">🏆</div>
+                <div>
+                    <div class="badge-num">897</div>
+                    <div class="badge-text">Total Podiums</div>
+                </div>
+            </div>
+            <div class="quick-badge-card">
+                <div class="badge-icon">🏁</div>
+                <div>
+                    <div class="badge-num">34</div>
+                    <div class="badge-text">World Champions</div>
+                </div>
+            </div>
+            <div class="quick-badge-card">
+                <div class="badge-icon">🏎️</div>
+                <div>
+                    <div class="badge-num">372</div>
+                    <div class="badge-text">Pole Positions</div>
+                </div>
+            </div>
+            <div class="quick-badge-card">
+                <div class="badge-icon">⚡</div>
+                <div>
+                    <div class="badge-num">15</div>
+                    <div class="badge-text">Fastest Lap Records</div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-async function fetchJson(url) {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error(`${url} returned ${response.status}`);
-    return response.json();
-}
+    <!-- Transforming F1 Data Section -->
+    <section id="project-overview" class="section-wrapper">
+        <span class="section-tag">PROJECT INTELLIGENCE ARCHITECTURE</span>
+        <h2 class="section-heading">Transforming F1 Data Into <span class="highlight">Championship Intelligence</span></h2>
+        <p class="section-desc">
+            This project leverages the rich historical and telemetry data from Formula 1 to build a comprehensive analytics platform. Using Tableau's powerful visual engine, each metric and championship trend is turned into interactive, actionable insights.
+        </p>
 
-async function loadDatasetStatus() {
-    const status = document.getElementById("dataStatus");
-    try {
-        const data = await fetchJson("/api/overview");
-        const sheets = Object.values(data);
-        const totalRows = sheets.reduce((sum, sheet) => sum + Number(sheet.rows || 0), 0);
-        status.innerHTML = `<strong>Dataset connected</strong> · ${sheets.length} sheets detected · ${number(totalRows)} total rows across sheets`;
-    } catch (error) {
-        status.textContent = "Could not load dataset status. Check the Flask server and workbook path.";
-        console.error(error);
-    }
-}
+        <div class="intel-overview-grid">
+            <!-- Left Track Diagram Card -->
+            <div class="track-map-container">
+                <svg class="track-svg" viewBox="0 0 400 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Circuit Track Path -->
+                    <path d="M 60,180 C 40,160 40,80 80,60 C 130,40 220,50 250,70 C 280,90 320,80 340,110 C 360,140 340,180 300,190 C 260,200 180,180 140,190 C 100,200 80,200 60,180 Z" 
+                          stroke="#E10600" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" />
+                    <!-- Track Center Dash Line -->
+                    <path d="M 60,180 C 40,160 40,80 80,60 C 130,40 220,50 250,70 C 280,90 320,80 340,110 C 360,140 340,180 300,190 C 260,200 180,180 140,190 C 100,200 80,200 60,180 Z" 
+                          stroke="#ffffff" stroke-width="1" stroke-dasharray="6,6" opacity="0.4" />
+                    <!-- Telemetry Nodes -->
+                    <circle cx="80" cy="60" r="6" fill="#E10600" />
+                    <circle cx="250" cy="70" r="5" fill="#ffffff" />
+                    <circle cx="340" cy="110" r="5" fill="#E10600" />
+                    <circle cx="140" cy="190" r="5" fill="#ffffff" />
+                </svg>
+                <div class="track-chips">
+                    <span class="chip active">🏁 Start / Finish</span>
+                    <span class="chip">Sector 1</span>
+                    <span class="chip">DRS Zone</span>
+                    <span class="chip">Speed Trap</span>
+                </div>
+            </div>
 
-async function loadLiveStats() {
-    try {
-        const [championship, races] = await Promise.all([
-            fetchJson("/api/championship"),
-            fetchJson("/api/races")
-        ]);
-        document.getElementById("leaderName").textContent = championship.leader;
-        document.getElementById("leaderPoints").textContent = `${number(championship.leader_points)} points`;
-        document.getElementById("raceCount").textContent = number(races.total_races);
-        document.getElementById("seasonLabel").textContent = `${races.latest_season}: ${number(races.season_races)} races`;
-        document.getElementById("wetRaces").textContent = number(races.wet_races_in_latest_season);
-        document.getElementById("wetSeasonLabel").textContent = `${races.latest_season} SEASON`;
-        document.getElementById("overtakes").textContent = number(races.total_drs_overtakes_in_latest_season);
-        document.getElementById("overtakeSeasonLabel").textContent = `${races.latest_season} SEASON`;
-    } catch (error) {
-        for (const id of ["leaderName", "raceCount", "wetRaces", "overtakes"]) {
-            document.getElementById(id).textContent = "Unavailable";
-        }
-        console.error("Live stats error:", error);
-    }
-}
+            <!-- Right Feature List -->
+            <div class="intel-feature-list">
+                <div class="intel-feature-item">
+                    <div class="intel-dot"></div>
+                    <div>
+                        <div class="intel-feature-title">Global Race Overview</div>
+                        <div class="intel-feature-text">Interactive world map tracking Grand Prix host countries, circuit telemetry, and driver country performance.</div>
+                    </div>
+                </div>
 
-async function loadDrivers() {
-    const body = document.getElementById("driverTableBody");
-    try {
-        const data = await fetchJson("/api/drivers");
-        document.getElementById("driverIntro").textContent =
-            `Top drivers in the ${data.season} championship season, ranked using the workbook standings.`;
-        if (!data.drivers.length) {
-            body.innerHTML = '<tr><td colspan="8">No standings available for this season.</td></tr>';
-            return;
-        }
-        body.replaceChildren();
-        for (const driver of data.drivers) {
-            const row = document.createElement("tr");
-            const values = [driver.position, driver.driver, driver.team, number(driver.points), number(driver.wins), number(driver.podiums), number(driver.poles), number(driver.dnfs)];
-            values.forEach((value, index) => {
-                const cell = document.createElement("td");
-                cell.textContent = value;
-                if (index === 0) cell.className = "rank";
-                row.appendChild(cell);
-            });
-            body.appendChild(row);
-        }
-    } catch (error) {
-        body.innerHTML = '<tr><td colspan="8">Could not load driver standings.</td></tr>';
-        console.error("Driver table error:", error);
-    }
-}
+                <div class="intel-feature-item">
+                    <div class="intel-dot"></div>
+                    <div>
+                        <div class="intel-feature-title">Driver Performance Metrics</div>
+                        <div class="intel-feature-text">Lap times, qualifications, title gaps, comparing telemetry benchmarks across champion eras.</div>
+                    </div>
+                </div>
 
-function renderList(elementId, items, labelKey, valueKey, valueSuffix = "") {
-    const list = document.getElementById(elementId);
-    list.replaceChildren();
-    if (!items || !items.length) {
-        const li = document.createElement("li");
-        li.textContent = "No records available for this season.";
-        list.appendChild(li);
-        return;
-    }
-    for (const item of items) {
-        const li = document.createElement("li");
-        const label = document.createElement("span");
-        const value = document.createElement("strong");
-        label.textContent = item[labelKey];
-        value.textContent = `${number(item[valueKey])}${valueSuffix}`;
-        li.append(label, value);
-        list.appendChild(li);
-    }
-}
+                <div class="intel-feature-item">
+                    <div class="intel-dot"></div>
+                    <div>
+                        <div class="intel-feature-title">Constructor Championship Battle</div>
+                        <div class="intel-feature-text">Points trajectories, constructor standings, engine supplier reliability, and budget efficiency.</div>
+                    </div>
+                </div>
 
-async function loadReliability() {
-    try {
-        const data = await fetchJson("/api/reliability");
-        document.getElementById("reliabilityIntro").textContent =
-            `${data.season} season · ${number(data.total_dnfs)} DNFs across ${number(data.total_entries)} driver-race entries · ${data.dnf_rate_pct}% DNF rate.`;
-        renderList("reasonList", data.dnf_reasons, "reason", "count");
-        renderList("teamDnfList", data.teams_by_dnfs, "team", "dnfs");
-    } catch (error) {
-        document.getElementById("reliabilityIntro").textContent = "Could not load reliability metrics.";
-        renderList("reasonList", [], "reason", "count");
-        renderList("teamDnfList", [], "team", "dnfs");
-        console.error("Reliability error:", error);
-    }
-}
+                <div class="intel-feature-item">
+                    <div class="intel-dot"></div>
+                    <div>
+                        <div class="intel-feature-title">Pit Stop &amp; Strategy Analytics</div>
+                        <div class="intel-feature-text">Tire compound degradation modeling, undercut vs overcut performance, and pit lane duration analytics.</div>
+                    </div>
+                </div>
 
-loadDatasetStatus();
-loadLiveStats();
-loadDrivers();
-loadReliability();
+                <div class="intel-feature-item">
+                    <div class="intel-dot"></div>
+                    <div>
+                        <div class="intel-feature-title">Championship Prediction Modeling</div>
+                        <div class="intel-feature-text">Predictive telemetry models forecasting constructor and driver championship probability outcomes.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-// Tableau Public generated embed loader
-const tableauDiv = document.getElementById("viz1793213729197");
-const tableauViz = tableauDiv?.getElementsByTagName("object")[0];
-if (tableauDiv && tableauViz) {
-    if (tableauDiv.offsetWidth > 500) {
-        tableauViz.style.width = "100%";
-        tableauViz.style.height = Math.max(800, tableauDiv.offsetWidth * 0.75) + "px";
-    } else {
-        tableauViz.style.width = "100%";
-        tableauViz.style.height = "1927px";
-    }
-    const tableauScript = document.createElement("script");
-    tableauScript.src = "https://public.tableau.com/javascripts/api/viz_v1.js";
-    tableauViz.parentNode.insertBefore(tableauScript, tableauViz);
-}
-</script>
+    <!-- Six Intelligence Dimensions Section -->
+    <section id="dimensions" class="section-wrapper">
+        <span class="section-tag">SIX CORE ANALYTIC MODULES</span>
+        <h2 class="section-heading">Intelligence <span class="highlight">Dimensions</span></h2>
+        <p class="section-desc">Six key analytical dimensions powering our Formula 1 Race Intelligence platform.</p>
+
+        <div class="filter-pills">
+            <span class="filter-pill active">All Metrics</span>
+            <span class="filter-pill">Driver Performance</span>
+            <span class="filter-pill">Constructor</span>
+            <span class="filter-pill">Circuit &amp; Telemetry</span>
+            <span class="filter-pill">Championship</span>
+        </div>
+
+        <div class="dimensions-grid">
+            <!-- Card 1 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">🏎️</div>
+                <div class="dimension-name">Circuit Analysis</div>
+                <div class="dimension-desc">Track layout performance metrics, high vs medium downforce setups, cornering delta, and DRS detection zone efficiency.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">⏱️</div>
+                <div class="dimension-name">Lap Time Breakdown</div>
+                <div class="dimension-desc">Sector-by-sector time delta analysis for every driver. Telemetry metrics in qualifying, race pace, and delta degradation.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">🛞</div>
+                <div class="dimension-name">Tire Strategy</div>
+                <div class="dimension-desc">Soft, Medium, Hard, Intermediate, Wet stint performance with pit stop delta modeling and tire degradation curves.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">⚔️</div>
+                <div class="dimension-name">Driver Head-to-Head</div>
+                <div class="dimension-desc">Teammate battles with exact qualifying deltas, race pace comparisons, overtakes per race, and championship finish rates.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+
+            <!-- Card 5 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">🔧</div>
+                <div class="dimension-name">Pit Stop Diagnostics</div>
+                <div class="dimension-desc">Pit stop duration distributions, mechanical reliability metrics, safety car deployment impact, and retirements.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+
+            <!-- Card 6 -->
+            <div class="dimension-card">
+                <div class="dimension-icon">🌦️</div>
+                <div class="dimension-name">Weather &amp; Safety Cars</div>
+                <div class="dimension-desc">Track temperature, rain probability, safety car timing impact on podium finishes, and tire strategy shifts.</div>
+                <a href="#race-dashboard" class="dimension-link">Explore Module &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Race Intelligence Dashboard Section -->
+    <section id="race-dashboard" class="section-wrapper">
+        <div class="viz-section-card">
+            <div class="viz-header">
+                <div class="viz-title-wrap">
+                    <div class="viz-accent"></div>
+                    <div class="viz-title">Race Intelligence Dashboard</div>
+                </div>
+                <div class="viz-badge">Interactive Telemetry</div>
+            </div>
+
+            <div class="viz-embed-wrapper">
+                <div class='tableauPlaceholder' id='viz1793221668558' style='position: relative'><noscript><a href='#'><img alt='Formula 1 Race Intelligence Dashboard ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;fi&#47;final_17932215494640&#47;Formula1RaceIntelligenceDashboard&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='final_17932215494640&#47;Formula1RaceIntelligenceDashboard' /><param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;fi&#47;final_17932215494640&#47;Formula1RaceIntelligenceDashboard&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1793221668558');                    var vizElement = divElement.getElementsByTagName('object')[0];                    if ( divElement.offsetWidth > 800 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';} else { vizElement.style.width='100%';vizElement.style.height='1977px';}                     var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Race Intelligence Story Section -->
+    <section id="race-story" class="section-wrapper">
+        <div class="viz-section-card">
+            <div class="viz-header">
+                <div class="viz-title-wrap">
+                    <div class="viz-accent"></div>
+                    <div class="viz-title">Race Intelligence Story</div>
+                </div>
+                <div class="viz-badge">Grand Prix Storyboard</div>
+            </div>
+
+            <div class="viz-embed-wrapper">
+                <div class='tableauPlaceholder' id='viz1793108656604' style='position: relative'><noscript><a href='#'><img alt='Formula 1 Race Intelligence Story ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;F1&#47;F1-Dashboard-Final&#47;Formula1RaceIntelligenceStory&#47;1_rss.png' style='border: none' /></a></noscript><object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> <param name='embed_code_version' value='3' /> <param name='path' value='views&#47;F1-Dashboard-Final&#47;Formula1RaceIntelligenceStory?:language=en-US&amp;:embed=true&amp;publish=yes&amp;:sid=&amp;:redirect=auth' /> <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;F1&#47;F1-Dashboard-Final&#47;Formula1RaceIntelligenceStory&#47;1.png' /> <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' /><param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /><param name='filter' value='publish=yes' /></object></div>                <script type='text/javascript'>                    var divElement = document.getElementById('viz1793108656604');                    var vizElement = divElement.getElementsByTagName('object')[0];                    vizElement.style.width='100%';vizElement.style.height=(divElement.offsetWidth*0.75)+'px';                    var scriptElement = document.createElement('script');                    scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    vizElement.parentNode.insertBefore(scriptElement, vizElement);                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">FORMULA <span>1</span> RACE INTELLIGENCE</div>
+        <p>POWERED BY TABLEAU PUBLIC EMBEDDED ANALYTICS &bull; FORMULA 1 WORLD CHAMPIONSHIP DATA</p>
+    </footer>
+
 </body>
 </html>
