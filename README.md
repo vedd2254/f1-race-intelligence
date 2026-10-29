@@ -11,7 +11,7 @@ A Formula 1 analytics project exploring driver performance, championship standin
 ## Run Locally
 
 ```bash
-git clone YOUR_REPOSITORY_URL
+git clone https://github.com/vedd2254/f1-race-intelligence
 cd f1-race-intelligence
 pip install -r requirements.txt
 python app.py
